@@ -1,7 +1,7 @@
 /* Component render header include navbar */
-import { AppBar, Toolbar, Typography, Button, makeStyles } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Button, makeStyles, Link } from "@material-ui/core";
 import { Auth } from "aws-amplify";
-
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
       title: {
         flexGrow: 1,
       },
+      link: {
+
+      }
   }));
 const Header = (props) =>{
     const classes = useStyles();
@@ -24,11 +27,14 @@ const Header = (props) =>{
             console.log('error signing out ',error);
         }
     }
+    const preventDefault = (event) => event.preventDefault();
     return (
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
+            <Typography  variant="h6" className={classes.title}>
+              <Link component={RouterLink} to="./" onClick={preventDefault} color='inherit'>
               Shop-Demo
+              </Link>
             </Typography>
             {props.loggedIn?
             <Button color="inherit" onClick={handleClick}>Logout</Button>:

@@ -1,25 +1,21 @@
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, { API, Auth } from 'aws-amplify';
 import SignIn from './components/SignIn';
 import Header from './components/Header';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SignUp from './components/SignUp';
 import ProductList from './components/ProductList';
+import AwsExports from './aws-exports';
+import AddProduct from './components/AddProduct';
 
 
-Amplify.configure({
-  Auth:{
-    region: 'us-east-1',
-    userPoolId: 'us-east-1_OI8jKNQ9g',
-    userPoolWebClientId: '4rhvsteqkvfjkir3rc135phass',
-  }
-})
+Amplify.configure(AwsExports);
 
 
 function App() {
   const [loggedIn,setLoggedIn] = useState(false);
   const AssessLoggedInState = () =>{
-    Auth.currentAuthenticatedUser()
+    Auth.currentSession()
         .then(() => {
           setLoggedIn(true);
           console.log('true current');
@@ -53,6 +49,12 @@ function App() {
           </Route>
           <Route exact path='/signup'>
             <SignUp onSignIn={handleSignIn}></SignUp>
+          </Route>
+          <Route exact path='/new'>
+            <AddProduct/>
+          </Route>
+          <Route>
+            <Redirect to='/'/>
           </Route>
         </Switch>
       </div>
