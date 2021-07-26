@@ -35,10 +35,12 @@ const SignUp = ( props ) => {
     const [ name, setName ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ errorMessage, setErrorMessage ] = useState('');
-    const handleClick = async ()=>{
+    const [ toConfirm,setToConfirm]=useState(false);
+    const [ code,setCode ] = useState('');
+    const handleSignUp = async ()=>{
         try{
             setErrorMessage('');
-            const {user} = await Auth.signUp({
+            const response = await Auth.signUp({
                 username,
                 password,
                 attributes: {
@@ -46,6 +48,19 @@ const SignUp = ( props ) => {
                     email
                 }
             });
+            console.log(response);
+            setToConfirm(true);
+        }catch(error){
+            console.log('there was an error logging in',error);
+            setErrorMessage(error.message);
+            setPassword('');
+        }
+    }
+    const handleConfirmSignUp = async ()=>{
+        try{
+            setErrorMessage('');
+            const response = await Auth.confirmSignUp(username, code);
+            console.log(response);
             props.history.push('/signin');
         }catch(error){
             console.log('there was an error logging in',error);
@@ -63,11 +78,47 @@ const SignUp = ( props ) => {
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign Up
+                    {toConfirm?'Confirm Sign Up':'Sign Up'}
                 </Typography>
+                {toConfirm?
+                <form className={classes.form} noValidate>
+                <TextField 
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    id='email'
+                    value={email}
+                    onChange={handleEmailChange}
+                />
+                <TextField 
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    label="Confirmation Code"
+                    name="code"
+                    autoFocus
+                    id='code'
+                    value={code}
+                    onChange={e => setCode(e.target.value)}
+                />
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={handleConfirmSignUp}
+                >
+                    Confirm
+                </Button>
+                </form>:
                 <form className={classes.form} noValidate>
                 <TextField 
                     variant="outlined"
@@ -115,11 +166,12 @@ const SignUp = ( props ) => {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
-                    onClick={handleClick}
+                    onClick={handleSignUp}
                 >
                     Sign Up
                 </Button>
                 </form>
+                }
             </div>
         </Container>
     )

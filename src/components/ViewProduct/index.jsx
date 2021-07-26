@@ -28,12 +28,11 @@ const ViewProduct = (props) =>{
     const sendEdition =async(product) =>{
         try{
             setMessage('');
-            let body = {
+            let params = {
                 'name':product.name,
                 'featuresPair':product
             }
-            let response = await API.put('MyAPIGatewayAPI','/put_product',{body});
-            console.log(response);
+            let response = await API.put('MyAPIGatewayAPI','/put_product',{body:params});
             setIsError(false);
             setMessage(response.message);
         }catch(error){
