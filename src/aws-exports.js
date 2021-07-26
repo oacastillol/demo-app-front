@@ -11,7 +11,7 @@ const AwsExports = {
         endpoints:[
             {
                 name: 'MyAPIGatewayAPI',
-                endpoint: 'https://p9fi4qwgz0.execute-api.us-east-1.amazonaws.com/Prod',
+                endpoint: 'https://vygixnmfy1.execute-api.us-east-1.amazonaws.com/Prod',
                 region: 'us-east-1',
                 // custom_header: async () => { 
                 //     return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` }
