@@ -3,6 +3,7 @@ import { ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction
 import KitchenIcon from '@material-ui/icons/Kitchen';
 import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 
 const ProductItem = (props) =>{
     const manufacturer = (mfr)=>{
@@ -18,7 +19,7 @@ const ProductItem = (props) =>{
         }
     }
     return (
-        <ListItem button>
+        <ListItem button component={RouterLink} to={`/view/${props.name}`}>
             <ListItemAvatar>
                 <Avatar>
                     <KitchenIcon />

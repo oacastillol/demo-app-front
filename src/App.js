@@ -1,33 +1,32 @@
-import Amplify, { API, Auth } from 'aws-amplify';
+import { Auth } from 'aws-amplify';
 import SignIn from './components/SignIn';
 import Header from './components/Header';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import SignUp from './components/SignUp';
 import ProductList from './components/ProductList';
-import AwsExports from './aws-exports';
+
 import AddProduct from './components/AddProduct';
+import ViewProduct from './components/ViewProduct';
+import { Container } from '@material-ui/core';
 
 
-Amplify.configure(AwsExports);
+
 
 
 function App() {
   const [loggedIn,setLoggedIn] = useState(false);
-  const AssessLoggedInState = () =>{
-    Auth.currentSession()
-        .then(() => {
-          setLoggedIn(true);
-          console.log('true current');
-        })
-        .catch(() => {
-          setLoggedIn(false);
-          console.log('false current');
-        })
+  const onLoad = async () =>{
+    try{
+      await Auth.currentSession();
+      setLoggedIn(true);
+    }catch(error){
+      console.log(error);
+    }
   }
-  useEffect(()=>{
-    AssessLoggedInState()
-  },[]);
+  // useEffect(()=>{
+  //   onLoad();
+  // },[]);
   const handleSignIn = ()=>{
     setLoggedIn(true);
   }
@@ -44,14 +43,21 @@ function App() {
             <ProductList />:
             <Redirect to="/signin" />}
           </Route>
+          <Route exact path='/new'>
+            {loggedIn ?
+            <AddProduct/>:
+            <Redirect to="/signin" />}
+          </Route>
+          <Route exact path='/view/:item'>
+            {loggedIn ?
+            <ViewProduct/>:
+            <Redirect to="/signin" />}
+          </Route>
           <Route exact path='/signin'>
             <SignIn onSignIn={handleSignIn}></SignIn>
           </Route>
           <Route exact path='/signup'>
             <SignUp onSignIn={handleSignIn}></SignUp>
-          </Route>
-          <Route exact path='/new'>
-            <AddProduct/>
           </Route>
           <Route>
             <Redirect to='/'/>

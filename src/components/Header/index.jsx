@@ -27,12 +27,11 @@ const Header = (props) =>{
             console.log('error signing out ',error);
         }
     }
-    const preventDefault = (event) => event.preventDefault();
     return (
         <AppBar position="static">
           <Toolbar>
             <Typography  variant="h6" className={classes.title}>
-              <Link component={RouterLink} to="./" onClick={preventDefault} color='inherit'>
+              <Link component={RouterLink} to="/" color='inherit'>
               Shop-Demo
               </Link>
             </Typography>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ProductItem from '../ProductItem';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme)=>({
     fab: {
@@ -40,7 +41,7 @@ const ProductList = (props) =>{
                         key={product.name} />
             })}
         </List>
-        <Fab color="primary" aria-label="add" className={classes.fab} href='/new'>
+        <Fab color="primary" aria-label="add" className={classes.fab} component={RouterLink} to="/new">
         <AddIcon />
       </Fab>
       </div>
