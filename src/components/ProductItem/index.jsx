@@ -30,9 +30,9 @@ const ProductItem = (props) =>{
                     secondary={manufacturer(props.mfr)}
                   />
             <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete">
+                {/* <IconButton edge="end" aria-label="delete">
                     <DeleteIcon />
-                </IconButton>
+                </IconButton> */}
             </ListItemSecondaryAction>
         </ListItem>
     )
