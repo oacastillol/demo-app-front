@@ -1,10 +1,11 @@
 import Product from "../Product"
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { LinearProgress } from "@material-ui/core";
 import { withRouter } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
+import AwsExports from "../../aws-exports";
 
 /**
  * Component render view of information of a product based in name
@@ -48,7 +49,15 @@ const ViewProduct = (props) =>{
                 'name':product.name,
                 'featuresPair':product
             }
-            let response = await API.put('MyAPIGatewayAPI','/put_product',{body:params});
+            let requestOptions = {
+                method: 'PUT',
+                headers: await AwsExports.API.endpoints[0].custom_header(),
+                body: params,
+            };
+            console.log(requestOptions);
+            let url =`${AwsExports.API.endpoints[0].endpoint}/put_product`;
+            let response = await fetch(url,requestOptions);
+            //let response = await API.put('MyAPIGatewayAPI','/put_product',{body:params});
             setIsError(false);
             setMessage(response.message);
             props.history.push('/');

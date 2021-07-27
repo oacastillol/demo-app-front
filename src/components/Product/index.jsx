@@ -138,7 +138,7 @@ const Product = (props)=>{
         </Grid>
         <Grid item xs={12} sm={4}>
             <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel fullWidth id="manufacturer-label">Manufacturer</InputLabel>
+                <InputLabel  id="manufacturer-label">Manufacturer</InputLabel>
                 <Select
                 disabled={!props.editable}
                 labelId="manufacturer-label"
@@ -158,7 +158,7 @@ const Product = (props)=>{
         </Grid>
         <Grid item xs={12} sm={4}>
           <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel fullWidth id="type-label">Type</InputLabel>
+            <InputLabel id="type-label">Type</InputLabel>
             <Select
             disabled={!props.editable}
             labelId="type-label"

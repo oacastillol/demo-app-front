@@ -3,6 +3,7 @@ import { useState } from "react";
 import Product from "../Product";
 import Alert from '@material-ui/lab/Alert';
 import { withRouter } from 'react-router-dom';
+import AwsExports from "../../aws-exports";
 
 
 /**
@@ -24,9 +25,13 @@ const AddProduct = (props)=>{
     const saveData =async (object)=>{
         try{
             setMessage('');
-            let params = new URLSearchParams(object);
-            let url =`/post_product?${params.toString()}`
-            let response = await API.post('MyAPIGatewayAPI',url);
+            let requestOptions = {
+                method: 'POST',
+                headers: await AwsExports.API.endpoints[0].custom_header(),    
+            };
+            let url =`${AwsExports.API.endpoints[0].endpoint}/post_product?`;
+            let response = await fetch(url + new URLSearchParams(object),requestOptions);
+//            let response = await API.post('MyAPIGatewayAPI',url,init);
             setIsError(false);
             setMessage(response.message);
             console.log('SaveData',response);
