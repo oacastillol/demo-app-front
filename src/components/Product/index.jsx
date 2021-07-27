@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-
+/**
+ * Object with all options and names for
+ * mfr input or Manufactures extract of
+ * https://www.kaggle.com/crawford/80-cereals
+ */
 const manufactures = [
     {value:'A', name: 'American Home Food Products'},
     {value:'G', name: 'General Mills'},
@@ -29,7 +33,17 @@ const manufactures = [
     {value:'Q', name: 'Quaker Oats'},
     {value:'R', name: 'Ralston Purina'},
 ]
-
+/**
+ * Render the information of Product Object
+ * has two states
+ * @param {Boolean} editable 
+ * @param {String}  title
+ * @param {Function} onSubmit
+ * @param {Object} Product
+ * @component
+ * @example
+ * return (<Product editable={inEdition} onSubmit={handleEdit} product={product} />)
+ */
 const Product = (props)=>{
     const classes = useStyles();
     const [name,setName] = useState('');
@@ -134,9 +148,9 @@ const Product = (props)=>{
                 label="Manufacturer"
                 >
                     {manufactures.map((item)=>{
-                        return <MenuItem value={item.value}>{item.name}</MenuItem>      
+                        return <MenuItem value={item.value} key={item.value}>{item.name}</MenuItem>      
                     })}
-                    <MenuItem value="">
+                    <MenuItem value="" key="">
                         <em>None</em>
                     </MenuItem>
                 </Select>
@@ -153,10 +167,10 @@ const Product = (props)=>{
             onChange={((e)=>setType(e.target.value))}
             label="Type"
             >
-                <MenuItem value="C">
+                <MenuItem value="C" key="C">
                     <em>Cold</em>
                 </MenuItem>
-                <MenuItem value="H">
+                <MenuItem value="H" key="H">
                     <em>Hot</em>
                 </MenuItem>
             </Select>

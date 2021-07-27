@@ -2,6 +2,7 @@
 import { AppBar, Toolbar, Typography, Button, makeStyles, Link } from "@material-ui/core";
 import { Auth } from "aws-amplify";
 import { Link as RouterLink } from 'react-router-dom';
+import PropType from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,8 +18,23 @@ const useStyles = makeStyles((theme) => ({
 
       }
   }));
+  /**
+   * Navigation Bar receive state of loggedIn and manage Logout
+   * @param {Boolean} loggedIn
+   * @param {Function} handleLogout
+   * @component
+   * @example 
+   * return (
+   *      <Header loggedIn={loggedIn} handleLogout={handleLogout}/>
+   *        )
+   */
 const Header = (props) =>{
     const classes = useStyles();
+    /**
+     * Send singOut to Cognito, send response
+     * signal to parent
+     * @param {Event} e 
+     */
     const handleClick = async (e)=>{
         try{
             await Auth.signOut();
@@ -43,5 +59,8 @@ const Header = (props) =>{
         </AppBar>
     )
 }
-
+Header.prototype={
+  loggedIn: PropType.bool,
+  handleLogout: PropType.func
+}
 export default Header;

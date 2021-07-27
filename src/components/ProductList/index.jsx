@@ -15,22 +15,36 @@ const useStyles = makeStyles((theme)=>({
         right: theme.spacing(2),
     },
 }));
-
+/**
+ * Render list of all Products, fetch information of backend
+ * @component
+ * @example
+ * return(<Route exact path='/'>
+ *             <ProductList />
+ *        </Route>)
+ */
 const ProductList = (props) =>{
     const [products,setProducts] = useState([]);
     const classes = useStyles();
-    const fetchProducts = async ()=>{
-        try{
-            const response = await API.get('MyAPIGatewayAPI','/fetch_products');
-            setProducts(response);
-            console.log(response);
-        }catch(error){
-            console.log(error);
-        }
-    }
+    /**
+     * Fetch data from backend through Amplify
+     */
     useEffect(()=>{
+        const fetchProducts = async ()=>{
+            try{
+                const myInit = { 
+                    headers: {'Access-Control-Allow-Origin': '*',
+                                'Content-Type': 'application/json' }, 
+                };
+                const response = await API.get('MyAPIGatewayAPI','/fetch_products',myInit);
+                setProducts(response);
+                console.log(response);
+            }catch(error){
+                console.log(error);
+            }
+        };
         fetchProducts();
-    },[])
+    }, [])
     return(
         <div>
         <List>

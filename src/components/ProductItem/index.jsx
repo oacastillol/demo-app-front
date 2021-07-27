@@ -1,10 +1,24 @@
 
-import { ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton} from '@material-ui/core';
+import { ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction} from '@material-ui/core';
 import KitchenIcon from '@material-ui/icons/Kitchen';
-import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 
+/**
+ * Render basic information of product
+ * @param {string} name
+ * @param {string} mfr
+ * @component
+ * @example
+ * return(<List>
+            {products.map(product => {
+                return <ProductItem 
+                        name={product.name}
+                        mfr={product.mfr}
+                        key={product.name} />
+            })}
+        </List>) 
+ */
 const ProductItem = (props) =>{
     const manufacturer = (mfr)=>{
         switch(mfr){
@@ -29,11 +43,7 @@ const ProductItem = (props) =>{
                     primary={props.name}
                     secondary={manufacturer(props.mfr)}
                   />
-            <ListItemSecondaryAction>
-                {/* <IconButton edge="end" aria-label="delete">
-                    <DeleteIcon />
-                </IconButton> */}
-            </ListItemSecondaryAction>
+            <ListItemSecondaryAction />
         </ListItem>
     )
 }

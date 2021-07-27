@@ -7,7 +7,6 @@ import { Auth } from 'aws-amplify';
 import { withRouter } from 'react-router-dom';
 
 
-
 const useStyles = makeStyles((theme) => ({
     paper: {
       marginTop: theme.spacing(8),
@@ -27,7 +26,16 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
   }));
-  
+
+/**
+ * Render the form for the registration and confirmation of the account
+ * using Cognito through Amplify
+ * @component
+ * @example 
+ * return (<Route exact path='/signup'>
+ *          <SignUp onSignUp={handleSignIn}></SignUp>
+ *         </Route>)
+ */  
 const SignUp = ( props ) => {
     const classes = useStyles();
     const [ email, setEmail ] = useState('');

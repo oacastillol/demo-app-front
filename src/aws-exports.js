@@ -1,21 +1,25 @@
 import { Auth } from "@aws-amplify/auth";
-
+/**
+ * Export credentials and settings to connect AWSCognito
+ */
 const AwsExports = {
     Auth:{
       mandatorySignIn: true,
       region: 'us-east-1',
-      userPoolId: 'us-east-1_SGzhouwJi',
-      userPoolWebClientId: '5bp80udikc0jpm9ttto4ujjp72',
+      userPoolId: 'us-east-1_2jGo6rb3L',
+      userPoolWebClientId: '463ub0u223tqq8mv9mpo2ofuqd',
     },
     API:    {
         endpoints:[
             {
                 name: 'MyAPIGatewayAPI',
-                endpoint: 'https://e01strnfge.execute-api.us-east-1.amazonaws.com/Prod',
+                endpoint: 'https://fq8u05ukwc.execute-api.us-east-1.amazonaws.com/Prod',
                 region: 'us-east-1',
-                // custom_header: async () => { 
-                //     return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}` }
-                // }
+                custom_header: async () => { 
+                     return { Authorization: `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`,
+                     'Access-Control-Allow-Origin': '*',
+                     'Content-Type': 'application/json' }
+                }
             }
         ]
     }

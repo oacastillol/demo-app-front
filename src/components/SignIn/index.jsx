@@ -27,7 +27,17 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3, 0, 2),
     },
   }));
-  
+/**
+ * Render form of login if is success call param function
+ * @param {function} props.onSignIn 
+ * @component
+ * @example
+ * return (
+ *         <Route exact path='/signin'>
+ *           <SignIn onSignIn={handleSignIn}></SignIn>
+ *         </Route>
+ * )
+ */
 const SignIn = ( props ) => {
     const classes = useStyles();
     const [ email, setEmail ] = useState('');
